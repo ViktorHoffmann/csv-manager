@@ -35,7 +35,7 @@ void measure_csv(std::string csv_Input_file, char csv_delimiter) {
 		std::cout << "Problem occured opening the file!\n";
 	}
 
-	std::vector<std::vector<double>> csv_mtrx();
+	std::vector<std::vector<double>> csv_mtrx(csv_rows, std::vector<double>(csv_cols));
 
 	csv_Infile.close();
 	exe_measure_csv = true;
@@ -63,28 +63,10 @@ void read_csv(std::string csv_Input_file, char csv_delimiter) {
 			// Seperate line by the delimiter
 			while (getline(csv_iline, csv_line, csv_delimiter))
 			{
-
-
-
-
-
-
-
-				/*
-				if (j == 1)
-				{
-					// Column 2
-					//todo y[i].push_back(strtod(csv_line.c_str(), NULL));
-					i++; j--;
-				}
-				else if (j == 0)
-				{
-					// Column 1
-					//todo x[i].push_back(strtod(csv_line.c_str(), NULL));
-					i++; j++;
-				}
-				*/
+				csv_mtrx[i][j] = strtod(csv_line.c_str(), NULL);
+				j++;
 			}
+			i++;
 		}
 	}
 	csv_Infile.close();
