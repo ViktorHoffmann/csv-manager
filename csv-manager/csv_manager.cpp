@@ -1,6 +1,6 @@
 #include "csv_manager_header.h"
 
-void measure_csv(std::string csv_Input_file) {
+void measure_csv(std::string csv_Input_file, char csv_delimiter) {
 	bool exe_measure_csv = false;
 
 	std::cout << "Measuring csv...\n";
@@ -18,7 +18,7 @@ void measure_csv(std::string csv_Input_file) {
 
 		// Seperate row by the delimiter
 		std::istringstream csv_iline(csv_line);
-		while (getline(csv_iline, csv_line, ';'))
+		while (getline(csv_iline, csv_line, csv_delimiter))
 		{
 			csv_cols++;
 			csv_defs.push_back(csv_line);
@@ -42,10 +42,10 @@ void measure_csv(std::string csv_Input_file) {
 	std::cout << "Measuring done\n";
 }
 
-void read_csv(std::string csv_Input_file) {
+void read_csv(std::string csv_Input_file, char csv_delimiter) {
 	if (exe_measure_csv != true) // check for measurement
 	{
-		measure_csv(csv_Input_file);
+		measure_csv(csv_Input_file, csv_delimiter);
 	}
 
 	std::ifstream csv_Infile;
@@ -61,7 +61,7 @@ void read_csv(std::string csv_Input_file) {
 		{
 			std::istringstream csv_iline(csv_line);
 			// Seperate line by the delimiter
-			while (getline(csv_iline, csv_line, ';'))
+			while (getline(csv_iline, csv_line, csv_delimiter))
 			{
 
 
@@ -94,18 +94,18 @@ void read_csv(std::string csv_Input_file) {
 	std::cout << "Reading done\n";
 }
 
-void write_csv(std::string csv_Output_file) {
+void write_csv(std::string csv_Output_file, char csv_delimiter) {
 	std::cout << "Printing to csv...\n";
 
 	std::ofstream Outfile;
 	Outfile.open(csv_Output_file);
 
-	Outfile << "output" << ";" << "csv file" << "\n";
+	Outfile << "output" << csv_delimiter << "csv file" << "\n";
 
 	//parsing loop
 	for (int i = 0; i < 10; i++)
 	{
-		Outfile << "Test" << ";" << "Output" << "\n";
+		Outfile << "Test" << csv_delimiter << "Output" << "\n";
 	}
 	Outfile.close();
 
@@ -116,10 +116,13 @@ int main()
 {
 	std::string csv_Input_file = "Test.csv";
 	std::string csv_Output_file = "output.csv";
+	char csv_delimiter = ';';
 
-	measure_csv(csv_Input_file);
+	measure_csv(csv_Input_file, csv_delimiter);
+	
 	std::cout << "Columns: " << csv_cols << "Rows: " << csv_rows << std::endl;
 	std::cin.get();
-	read_csv(csv_Input_file);
-	write_csv(csv_Output_file);
+	
+	read_csv(csv_Input_file, csv_delimiter);
+	write_csv(csv_Output_file, csv_delimiter);
 }

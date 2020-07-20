@@ -7,6 +7,7 @@
 
 std::string csv_Output_file;
 std::string csv_Input_file;
+char csv_delimiter;
 
 bool exe_measure_csv;
 
