@@ -8,8 +8,8 @@ void measure_csv(std::string csv_Input_file) {
 	std::ifstream csv_Infile;
 	csv_Infile.open(csv_Input_file);
 
+
 	if (csv_Infile.good()) {
-		int csv_cols = 0; int csv_rows = 0;
 		std::string csv_line;
 
 		// measure whole row
@@ -89,8 +89,8 @@ void read_csv(std::string csv_Input_file) {
 	}
 	csv_Infile.close();
 	//todo
-	std::cout << (alt.size() * (vel.size() <= alt.size()) + (vel.size() * (vel.size() > alt.size()))) << " lines parsed\n";
-	std::cout << (alt.size() + vel.size()) << " elements parsed\n";
+	/*std::cout << (alt.size() * (vel.size() <= alt.size()) + (vel.size() * (vel.size() > alt.size()))) << " lines parsed\n";
+	std::cout << (alt.size() + vel.size()) << " elements parsed\n";*/
 	std::cout << "Reading done\n";
 }
 
@@ -110,4 +110,16 @@ void write_csv(std::string csv_Output_file) {
 	Outfile.close();
 
 	std::cout << "Printing done\n";
+}
+
+int main()
+{
+	std::string csv_Input_file = "Test.csv";
+	std::string csv_Output_file = "output.csv";
+
+	measure_csv(csv_Input_file);
+	std::cout << "Columns: " << csv_cols << "Rows: " << csv_rows << std::endl;
+	std::cin.get();
+	read_csv(csv_Input_file);
+	write_csv(csv_Output_file);
 }
