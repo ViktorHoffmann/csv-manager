@@ -1,10 +1,5 @@
 #include "csv_manager_header.h"
 
-std::string csv_Input_file = "input.csv";
-std::string csv_Output_file = "output.csv";
-char csv_delimiter = ';';
-
-
 void measure_csv(std::string csv_Input_file, char csv_delimiter) {
 	bool exe_measure_csv = false;
 
@@ -85,19 +80,29 @@ void read_csv(std::string csv_Input_file, char csv_delimiter) {
 	std::cout << "Reading done\n";
 }
 
-void write_csv(std::string csv_Output_file, char csv_delimiter) {
+void write_csv(std::string csv_Output_file, char csv_delimiter, std::vector<std::string> csv_odefs, std::vector<std::vector<double>> csv_omtrx) {
+	// measuring of output matrix
+
+
+
 	std::cout << "Printing to csv...\n";
 
 	std::ofstream Outfile;
 	Outfile.open(csv_Output_file);
 
-	Outfile << "output" << csv_delimiter << "csv file" << "\n";
-
-	//parsing loop
-	for (int i = 0; i < 10; i++)
+	// printing of the output defs / title
+	for (int i = 0; i < csv_odefs.size(); i++)
 	{
-		Outfile << "Test" << csv_delimiter << "Output" << "\n";
+		Outfile << csv_odefs[i] << csv_delimiter;
 	}
+	Outfile << "\n";
+
+	// output matrix printing loop
+	for (int i = 0; i < csv_omtrx.size(); i++)
+	{
+		Outfile << 
+	}
+
 	Outfile.close();
 
 	std::cout << "Printing done\n";
@@ -105,8 +110,12 @@ void write_csv(std::string csv_Output_file, char csv_delimiter) {
 
 int main()
 {
+	std::string csv_Input_file = "input.csv";
+	std::string csv_Output_file = "output.csv";
+	char csv_delimiter = ';';
+
 	measure_csv(csv_Input_file, csv_delimiter);
 	read_csv(csv_Input_file, csv_delimiter);
-	write_csv(csv_Output_file, csv_delimiter);
+	write_csv(csv_Output_file, csv_delimiter, csv_odefs, csv_omtrx);
 	std::cin.get();
 }
