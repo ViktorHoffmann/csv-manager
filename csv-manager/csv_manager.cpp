@@ -4,6 +4,7 @@ std::string csv_Input_file = "input.csv";
 std::string csv_Output_file = "output.csv";
 char csv_delimiter = ';';
 
+
 void measure_csv(std::string csv_Input_file, char csv_delimiter) {
 	bool exe_measure_csv = false;
 
@@ -25,7 +26,7 @@ void measure_csv(std::string csv_Input_file, char csv_delimiter) {
 		while (getline(csv_iline, csv_line, csv_delimiter))
 		{
 			csv_cols++;
-			csv_defs.push_back(csv_line);
+			csv_idefs.push_back(csv_line);
 		}
 
 		// measure all following rows
@@ -39,7 +40,7 @@ void measure_csv(std::string csv_Input_file, char csv_delimiter) {
 		std::cout << "Problem occured opening the file!\n";
 	}
 
-	std::vector<std::vector<double>> csv_mtrx(csv_rows, std::vector<double>(csv_cols));
+	std::vector<std::vector<double>> csv_imtrx(csv_rows, std::vector<double>(csv_cols));
 
 	csv_Infile.close();
 	exe_measure_csv = true;
@@ -61,16 +62,16 @@ void read_csv(std::string csv_Input_file, char csv_delimiter) {
 	int j = 0;    // column iterator
 	while (csv_Infile.good()) {
 		std::string csv_line;
-		// Read whole line
+		// Read whole row
 		while (getline(csv_Infile, csv_line))
 		{
 			std::istringstream csv_iline(csv_line);
-			// Seperate line by the delimiter
+			// Seperate row by the delimiter
 			while (getline(csv_iline, csv_line, csv_delimiter))
 			{
-				if (i != 0)    // skip title (csv_defs)
+				if (i != 0)    // skip title (csv_idefs)
 				{
-					csv_mtrx[i][j] = strtod(csv_line.c_str(), NULL);
+					csv_imtrx[i][j] = strtod(csv_line.c_str(), NULL);
 					j++;
 				}
 			}
@@ -80,7 +81,7 @@ void read_csv(std::string csv_Input_file, char csv_delimiter) {
 	csv_Infile.close();
 
 	std::cout << csv_rows << " rows parsed\n";
-	std::cout << csv_mtrx.size() << " elements parsed\n";
+	std::cout << csv_imtrx.size() << " elements parsed\n";
 	std::cout << "Reading done\n";
 }
 

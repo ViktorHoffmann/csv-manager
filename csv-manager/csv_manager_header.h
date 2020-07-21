@@ -12,5 +12,7 @@ char csv_delimiter;
 bool exe_measure_csv;
 
 int csv_cols; int csv_rows;
-std::vector<std::string>            csv_defs;    // csv title row
-std::vector<std::vector<double>>    csv_mtrx;    // csv value matrix
+std::vector<std::string>            csv_idefs;    // input csv title row
+std::vector<std::string>            csv_odefs;    // output csv title row
+std::vector<std::vector<double>>    csv_imtrx;    // input csv value matrix
+std::vector<std::vector<double>>    csv_omtrx;    // output csv value matrix
