@@ -14,4 +14,4 @@ takes the file name & delimiter as inputs and saves the size of the csv file in 
 measures the csv file if it didn't happen before and then parses the values of the csv file into the matrix
 
 - write_csv:
-_work in progress_
+takes the output file name, delimiter, title vector and value matrix as inputs and then writes them into the selected csv file
