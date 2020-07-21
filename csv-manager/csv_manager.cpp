@@ -1,5 +1,9 @@
 #include "csv_manager_header.h"
 
+std::string csv_Input_file = "input.csv";
+std::string csv_Output_file = "output.csv";
+char csv_delimiter = ';';
+
 void measure_csv(std::string csv_Input_file, char csv_delimiter) {
 	bool exe_measure_csv = false;
 
@@ -53,7 +57,8 @@ void read_csv(std::string csv_Input_file, char csv_delimiter) {
 
 	std::cout << "Reading csv...\n";
 
-	int i = 0; int j = 0;
+	int i = 0;    // row iterator
+	int j = 0;    // column iterator
 	while (csv_Infile.good()) {
 		std::string csv_line;
 		// Read whole line
@@ -63,16 +68,19 @@ void read_csv(std::string csv_Input_file, char csv_delimiter) {
 			// Seperate line by the delimiter
 			while (getline(csv_iline, csv_line, csv_delimiter))
 			{
-				csv_mtrx[i][j] = strtod(csv_line.c_str(), NULL);
-				j++;
+				if (i != 0)    // skip title (csv_defs)
+				{
+					csv_mtrx[i][j] = strtod(csv_line.c_str(), NULL);
+					j++;
+				}
 			}
 			i++;
 		}
 	}
 	csv_Infile.close();
-	//todo
-	/*std::cout << (alt.size() * (vel.size() <= alt.size()) + (vel.size() * (vel.size() > alt.size()))) << " lines parsed\n";
-	std::cout << (alt.size() + vel.size()) << " elements parsed\n";*/
+
+	std::cout << csv_rows << " rows parsed\n";
+	std::cout << csv_mtrx.size() << " elements parsed\n";
 	std::cout << "Reading done\n";
 }
 
@@ -96,15 +104,8 @@ void write_csv(std::string csv_Output_file, char csv_delimiter) {
 
 int main()
 {
-	std::string csv_Input_file = "Test.csv";
-	std::string csv_Output_file = "output.csv";
-	char csv_delimiter = ';';
-
 	measure_csv(csv_Input_file, csv_delimiter);
-	
-	std::cout << "Columns: " << csv_cols << "Rows: " << csv_rows << std::endl;
-	std::cin.get();
-	
 	read_csv(csv_Input_file, csv_delimiter);
 	write_csv(csv_Output_file, csv_delimiter);
+	std::cin.get();
 }
