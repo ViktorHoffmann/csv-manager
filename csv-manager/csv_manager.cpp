@@ -8,26 +8,26 @@ void measure_csv(std::string csv_Input_file, char csv_delimiter) {
 	std::ifstream csv_Infile;
 	csv_Infile.open(csv_Input_file);
 
-
+	int csv_icols = 0; int csv_irows = 0;
 	if (csv_Infile.good()) {
 		std::string csv_line;
 
 		// measure whole row
 		getline(csv_Infile, csv_line);
-		csv_rows++;
+		csv_irows++;
 
 		// Seperate row by the delimiter
 		std::istringstream csv_iline(csv_line);
 		while (getline(csv_iline, csv_line, csv_delimiter))
 		{
-			csv_cols++;
+			csv_icols++;
 			csv_idefs.push_back(csv_line);
 		}
 
 		// measure all following rows
 		while (getline(csv_Infile, csv_line))
 		{
-			csv_rows++;
+			csv_irows++;
 		}
 	}
 	else
@@ -35,7 +35,7 @@ void measure_csv(std::string csv_Input_file, char csv_delimiter) {
 		std::cout << "Problem occured opening the file!\n";
 	}
 
-	std::vector<std::vector<double>> csv_imtrx(csv_rows, std::vector<double>(csv_cols));
+	std::vector<std::vector<double>> csv_imtrx(csv_irows, std::vector<double>(csv_icols));
 
 	csv_Infile.close();
 	exe_measure_csv = true;
@@ -75,32 +75,36 @@ void read_csv(std::string csv_Input_file, char csv_delimiter) {
 	}
 	csv_Infile.close();
 
-	std::cout << csv_rows << " rows parsed\n";
+	std::cout << csv_irows << " rows parsed\n";
 	std::cout << csv_imtrx.size() << " elements parsed\n";
 	std::cout << "Reading done\n";
 }
 
 void write_csv(std::string csv_Output_file, char csv_delimiter, std::vector<std::string> csv_odefs, std::vector<std::vector<double>> csv_omtrx) {
 	// measuring of output matrix
-
-
+	int csv_orows = sizeof csv_omtrx / sizeof csv_omtrx[0];
+	int csv_ocols = sizeof csv_omtrx[0] / sizeof(double);
 
 	std::cout << "Printing to csv...\n";
 
 	std::ofstream Outfile;
 	Outfile.open(csv_Output_file);
-
-	// printing of the output defs / title
-	for (int i = 0; i < csv_odefs.size(); i++)
-	{
-		Outfile << csv_odefs[i] << csv_delimiter;
-	}
-	Outfile << "\n";
-
+	
 	// output matrix printing loop
-	for (int i = 0; i < csv_omtrx.size(); i++)
+	for (int i = 0; i < csv_orows; i++)
 	{
-		Outfile << 
+		for (int j = 0; j < csv_ocols; j++)
+		{
+			if (i != 0)    // skiping the title
+			{
+				Outfile << csv_omtrx[j][i] << csv_delimiter;
+			}
+			else           // printing of the title / output defs
+			{
+				Outfile << csv_odefs[j] << csv_delimiter;
+			}
+		}
+		Outfile << "\n";
 	}
 
 	Outfile.close();
