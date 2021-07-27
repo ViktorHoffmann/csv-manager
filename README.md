@@ -1,4 +1,7 @@
 # csv-manager
+
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/a15ca6086fb7418a98117763250ae00a)](https://app.codacy.com/gh/ViktorHoffmann/csv-manager?utm_source=github.com&utm_medium=referral&utm_content=ViktorHoffmann/csv-manager&utm_campaign=Badge_Grade_Settings)
+
 C++ csv manager
 
 # Using it:
